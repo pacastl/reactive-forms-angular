@@ -1,0 +1,116 @@
+<h2>Reactivos: Básicos</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+      <!-- autocomplete="off" indica que las validaciones las quiero hacer yo y no que las ponga el navegador-->
+        <form [formGroup]="myForm" autocomplete="off" (ngSubmit)="onSave()">
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Producto</label>
+                <div class="col-sm-9">
+
+                    <input type="text"
+                           class="form-control"
+                           formControlName="name"
+                           placeholder="Nombre del producto">
+
+                    <!-- Primera forma de mostrar los errores. Pero había que hacerlo para campo y es demasiado engorroso -->
+                    <!-- Muestra error si no se ha rellano el campo -->
+                    <!-- <span *ngIf="myForm.controls['name'].getError('required') && myForm.controls['name'].touched" class="form-text text-danger">
+                        Este campo es requerido
+                    </span> -->
+                     <!-- Muestra error si no tiene al menos 3 letras -->
+                    <!-- <span *ngIf="myForm.controls['name'].getError('minlength') && myForm.controls['name'].touched" class="form-text text-danger"> -->
+                      <!-- Debe de ser de 3 letras -->
+                      <!-- Este campo requiere al menos 3 letras
+                  </span> -->
+
+                  <!-- Segunda forma -->
+                  <span *ngIf="isValidField('name')"
+                  class="form-text text-danger">
+                    {{getFieldError('name')}}
+                </span>
+                </div>
+            </div>
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Precio</label>
+                <div class="col-sm-9">
+                    <input type="number"
+                           class="form-control"
+                           formControlName="price"
+                           placeholder="Precio del producto">
+
+                    <span *ngIf="isValidField('price')" class="form-text text-danger">
+                        El precio debe de ser 0 o mayor
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de existencias -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Existencias</label>
+                <div class="col-sm-9">
+                    <input type="number"
+                           class="form-control"
+                           formControlName="inStorage"
+                           placeholder="Existencias del producto">
+
+                    <span *ngIf="isValidField('inStorage')" class="form-text text-danger">
+                         Las existencias deben de ser 0 o mayor
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit"
+                            class="btn btn-primary float-end">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col">
+
+        <span>Valid</span>
+        <pre>{{ myForm.valid| json }}</pre>
+
+        <span>Pristine</span>
+        <pre>{{ myForm.pristine| json }}</pre>
+
+        <span>Touched</span>
+        <pre>{{ myForm.touched| json }}</pre>
+
+        <span>Value</span>
+        <pre>{{ myForm.value | json }}</pre>
+
+        <span>Precio</span>
+        <pre>{{ myForm.controls['price'].value | json }}</pre>
+
+        <span>Precio- Errors</span>
+        <pre>{{ myForm.controls['price'].errors | json }}</pre>
+
+        <span>Producto</span>
+        <pre>{{ myForm.controls['name'].value | json }}</pre>
+
+        <span>Producto</span>
+        <pre>{{ myForm.controls['name'].errors | json }}</pre>
+    </div>
+</div>
